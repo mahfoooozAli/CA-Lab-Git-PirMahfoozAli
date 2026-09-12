@@ -30,11 +30,10 @@ loop1:
 
    increment:
         addi x7, x7, 1 # i++
-        beg x0,x0, loop1
+        beq x0,x0, loop1
 
 Exit:
 
 end:
 
-    j end 
-
+    j end
