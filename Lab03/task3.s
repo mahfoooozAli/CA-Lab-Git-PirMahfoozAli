@@ -4,17 +4,16 @@
 
 main:
 
-    addi sp, sp, -16  # stack memory for the array
-    addi x10, sp, 8   # x10 = base address of v[]
-    li t0, 1
-    sw t0, 0(x10)     # v[0] = 1
+    li x10, 0x180  # base address of v[]
+    li x11, 0      # k = 0
+
+    li t0, 1       
+    sw t0, 0(x10)  # v[0] = 1
+
     li t0, 2
-    sw t0, 4(x10)     # v[1] = 2
-    li x11, 0         # k = 0
-    
+    sw t0, 4(x10)  # v[1] = 2
     jal x1, swap     # calls swap
 
-    addi sp, sp, 16   # release stack memory
 
 end:
     j end  # loop

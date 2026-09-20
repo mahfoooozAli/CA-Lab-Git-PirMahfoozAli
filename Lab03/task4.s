@@ -3,9 +3,8 @@
 
 main:
 
-    addi sp, sp, -64   # stack allocation 
-    addi x10, sp, 8    # x10 = destination memory address
-    addi x11, sp, 32   # x11 = source address
+    li x10, 0x400     # base address of x[]
+    li x11, 0x500     # base address of y[]
 
     addi t0, x0, 67   # load 'C' (ASCII 67)
     sb t0, 0(x11)     # store 'C' in y[0]
@@ -17,7 +16,6 @@ main:
 
     jal x1, strcpy
 
-    addi sp, sp, 64    # release stack memory
     
 end:
 
