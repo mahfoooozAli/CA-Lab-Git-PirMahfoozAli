@@ -2,18 +2,18 @@
 .globl main
 
 main:
-    addi x5, x0, 1  # result = 1
     addi x10, x0, 5 # n = 5
 
     jal x1, fact
 
-    addi x11, x5, 0   # move result into x11 for ecall
+    addi x11, x10, 0   # move result into x11 for ecall
     addi x10, x0, 1  # x10 = 1 ecall code for print int
     ecall
 
     j exit          # stop
 
 fact:
+    addi x5, x0, 1  # result = 1
     loop:
 
         bge x0, x10, done   # (n <= 0), exit

@@ -34,13 +34,15 @@ bubble:
     outerloop:
         bge t0, x11, outerloop_done   # i >= len, done
         
+        slli t2, t0, 2  # t2 = i * 4
+        add t2, t2 , x10   # t2 = &arr[i]
+        
         add t1, x0, t0  # j = i
        
     innerloop:
         bge t1, x11, outerloop_next   # j >= len, exit inner loop
 
-        slli t2, t0, 2  # t2 = i * 4
-        add t2, t2 , x10   # t2 = &arr[i]
+       
 
         slli t3, t1, 2   # t3 = j * 4
         add t3, t3, x10   # t3 = &arr[j]
@@ -48,19 +50,15 @@ bubble:
         lw t4, 0(t2)   # t4 = arr[i]
         lw t5, 0(t3)   # t5 = arr[j]
         
-        blt t4, t5, swap    # arr[i] < arr[j], swap
-        beq x0, x0, innerloop_continue
-    innerloop_continue:
+       bge t4, t5, no_swap   # arr[i] >= arr[j], skip swap
 
-        addi t1, t1, 1
-        beq x0, x0, innerloop
-    swap:
-    
-        sw t5, 0(t2)     # arr[i] = arr[j]
-        sw t4, 0(t3)    # arr[j] = temp
+       sw t5, 0(t2)    # arr[i] = arr[j]
+       sw t4, 0(t3)    # arr[j] = temp
 
-        beq x0,x0, innerloop_continue
 
+    no_swap:
+        addi t1, t1, 1 # j++
+        beq x0,x0, innerloop
     outerloop_next:
         addi t0, t0, 1  # i++
         beq x0, x0, outerloop

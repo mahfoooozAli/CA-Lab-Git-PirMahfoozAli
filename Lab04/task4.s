@@ -27,7 +27,7 @@ main:
 
     jal x1, linearsearch
 
-    addi x11, x10, 0   # x11 = 10
+    addi x11, x10, 0   # x11 = result 
     addi x10, x0, 1    # x10 = 1 for ecall
     ecall
 

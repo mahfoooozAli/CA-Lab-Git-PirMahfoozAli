@@ -2,7 +2,7 @@
 .globl main
 
 main:
-    addi t0, x0, 1   # temp  = 1 for if condition
+   
     addi x10, x0, 5  # num = 5
     jal x1, ntri
 
@@ -19,15 +19,16 @@ ntri:
     sw x10, 0(sp)    # save num
     sw x1, 4(sp)    # save return address
 
+    addi t0, x0, 1   # temp  = 1 for if condition
     bge t0, x10, base  # (n <= 1), done
 
     addi x10, x10, -1  # num - 1
     jal x1, ntri    # ntri(n-1)
-    addi t1, x10, 0 # temp = ntri(n-1)
-    lw x10, 0(sp)   #  restore x10
+    
 
-    add t2, x10, t1  # temp =  num + ntri(n-1)
-    add x10, x0, t2   # return num
+    lw t1, 0(sp)   #  restore x10 into t1
+
+    add x10, x10, t1  # x10 =  num + ntri(n-1)
     jal x0, done  # skip base case
 
 
